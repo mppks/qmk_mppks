@@ -1,9 +1,7 @@
-![SofleKeyboard default keymap](https://i.imgur.com/MZxVvm9.png)
-![SofleKeyboard adjust layer](https://i.imgur.com/f5sKy0I.png)
 
 # Default keymap for Sofle Keyboard
 
-Layout in [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/#/gists/76efb423a46cbbea75465cb468eef7ff) and [adjust layer](http://www.keyboard-layout-editor.com/#/gists/4bcf66f922cfd54da20ba04905d56bd4)
+Layout in [Keyboard Layout Editor](https://www.keyboard-layout-editor.com/#/gists/3c6ab7fe48058ceb74e04aba4f5e5337) and [adjust layer](https://www.keyboard-layout-editor.com/#/gists/6fa706eced73b777786c081ebae09188)
 
 Features:
 
