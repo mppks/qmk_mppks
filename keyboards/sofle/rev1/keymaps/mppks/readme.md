@@ -1,3 +1,5 @@
+![SofleKeyboard default keymap](https://raw.githubusercontent.com/mppks/qmk_mppks/5022081726de26a4dc5ba706a0ab0850bb06ed42/soflekeyboard.png)
+![SofleKeyboard adjust layer](https://raw.githubusercontent.com/mppks/qmk_mppks/5022081726de26a4dc5ba706a0ab0850bb06ed42/soflekeyboard-adjust.png)
 
 # Default keymap for Sofle Keyboard
 
