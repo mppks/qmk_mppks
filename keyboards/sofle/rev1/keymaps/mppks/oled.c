@@ -5,6 +5,16 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 void print_status(void) {
+    // Print current mode
+    oled_write_ln_P(PSTR("MODE"), false);
+    oled_write_ln_P(PSTR(""), false);
+    if (keymap_config.swap_lctl_lgui) {
+        oled_write_ln_P(PSTR("MAC"), false);
+    } else {
+        oled_write_ln_P(PSTR("WIN"), false);
+    }
+
+    // Print current layout
     oled_write_P(PSTR("\n\n"), false);
     switch (get_highest_layer(default_layer_state)) {
         case 0:
@@ -14,9 +24,11 @@ void print_status(void) {
             oled_write_ln_P(PSTR("Clmk"), false);
             break;
         default:
-            oled_write_P(PSTR("Mod\n"), false);
+            oled_write_ln_P(PSTR("Mod"), false);
             break;
     }
+
+    // Print current layer
     oled_write_P(PSTR("\n\n"), false);
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
@@ -34,7 +46,7 @@ void print_status(void) {
             oled_write_P(PSTR("Adjust"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_P(PSTR("Undef"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
@@ -184,7 +196,7 @@ bool oled_task_user(void) {
         oled_write_P(PSTR("\nWPM: "), false);
 	    oled_write(get_u8_str(get_current_wpm(), '0'), false);
     }
-    return true;
+    return false;
 }
 
 #endif
