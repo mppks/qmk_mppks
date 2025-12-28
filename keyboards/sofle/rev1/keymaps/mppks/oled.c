@@ -1,13 +1,13 @@
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_270;
+    return OLED_ROTATION_90;
 }
 
 void print_status(void) {
     // Print current mode
-    oled_write_ln_P(PSTR("MODE"), false);
-    oled_write_ln_P(PSTR(""), false);
+    oled_write_P(PSTR("\n"), false);
+    oled_write_P(PSTR("MODE: "), false);
     if (keymap_config.swap_lctl_lgui) {
         oled_write_ln_P(PSTR("MAC"), false);
     } else {
@@ -15,16 +15,16 @@ void print_status(void) {
     }
 
     // Print current layout
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_P(PSTR("\n"), false);
     switch (get_highest_layer(default_layer_state)) {
         case 0:
-            oled_write_ln_P(PSTR("Qwrt"), false);
+            oled_write_ln_P(PSTR("Qewrty"), false);
             break;
         case 1:
-            oled_write_ln_P(PSTR("Clmk"), false);
+            oled_write_ln_P(PSTR("Colemak"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Mod"), false);
+            oled_write_ln_P(PSTR("Mode"), false);
             break;
     }
 
@@ -34,23 +34,23 @@ void print_status(void) {
     switch (get_highest_layer(layer_state)) {
         case 0:
         case 1:
-            oled_write_P(PSTR("Base\n"), false);
+            oled_write_ln_P(PSTR("Base"), false);
             break;
         case 2:
-            oled_write_P(PSTR("Lower"), false);
+            oled_write_ln_P(PSTR("Lower"), false);
             break;
         case 3:
-            oled_write_P(PSTR("Raise"), false);
+            oled_write_ln_P(PSTR("Raise"), false);
             break;
         case 4:
-            oled_write_P(PSTR("Adjust"), false);
+            oled_write_ln_P(PSTR("Adjust"), false);
             break;
         default:
-            oled_write_P(PSTR("Undef"), false);
+            oled_write_ln_P(PSTR("Undef"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
-    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    oled_write_ln_P(PSTR("CAPSLOCK"), led_usb_state.caps_lock);
 }
 
 /* Animation bit by j-inc https://github.com/qmk/qmk_firmware/tree/master/keyboards/kyria/keymaps/j-inc */
