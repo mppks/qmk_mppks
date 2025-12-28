@@ -1,14 +1,14 @@
 ![SofleKeyboard default keymap](https://raw.githubusercontent.com/mppks/qmk_mppks/5022081726de26a4dc5ba706a0ab0850bb06ed42/soflekeyboard.png)
 ![SofleKeyboard adjust layer](https://raw.githubusercontent.com/mppks/qmk_mppks/5022081726de26a4dc5ba706a0ab0850bb06ed42/soflekeyboard-adjust.png)
 
-# Default keymap for Sofle Keyboard
+# Mppks keymap for Sofle Keyboard
 
 Layout in [Keyboard Layout Editor](https://www.keyboard-layout-editor.com/#/gists/3c6ab7fe48058ceb74e04aba4f5e5337) and [adjust layer](https://www.keyboard-layout-editor.com/#/gists/6fa706eced73b777786c081ebae09188)
 
 Features:
 
 - Symmetric modifiers (CMD/Super, Alt/Opt, Ctrl, Shift)
-- Various modes, can be switched (using Adjust layer and the selected one is stored in EEPROM.
+- Various modes, can be switched using Adjust layer and the selected one is stored in EEPROM.
 - Modes for Qwerty and Colemak support
 - Modes for Mac vs Linux/Win support -> different order of modifiers and different action shortcuts on the "UPPER" layer (the red one in the image). Designed to simplify transtions when switching between operating systems often.
 - The OLED on master half shows selected mode and caps lock state and is rotated.
