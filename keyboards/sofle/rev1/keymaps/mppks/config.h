@@ -1,6 +1,3 @@
-// Copyright 2024 Santosh Kumar (@santosh)
-// SPDX-License-Identifier: GPL-2.0-or-later
-
 #pragma once
 
 #define TRI_LAYER_LOWER_LAYER 2
@@ -16,7 +13,12 @@
 #define OLED_CHARGE_PUMP_VALUE 0x72 // ???
 #define OLED_BRIGHTNESS 64
 #define OLED_UPDATE_INTERVAL 50
-#define OLED_TIMEOUT 6000
+#define OLED_TIMEOUT 30000
 #define OLED_FADE_OUT
 
 #define MASTER_RIGHT
+
+#undef MANUFACTURER
+#define MANUFACTURER "mppks"
+#undef PRODUCT
+#define PRODUCT "Sofle v2 keyboard"
