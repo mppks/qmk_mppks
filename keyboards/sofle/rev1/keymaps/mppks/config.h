@@ -18,7 +18,11 @@
 
 #define MASTER_RIGHT
 
+#define ENCODER_DIRECTION_FLIP
+
 #undef MANUFACTURER
 #define MANUFACTURER "mppks"
 #undef PRODUCT
 #define PRODUCT "Sofle v2 keyboard"
+
+#define DEBOUNCE 10
