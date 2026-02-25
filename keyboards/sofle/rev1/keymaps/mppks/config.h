@@ -26,3 +26,5 @@
 #define PRODUCT "Sofle v2 keyboard"
 
 #define DEBOUNCE 10
+
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
