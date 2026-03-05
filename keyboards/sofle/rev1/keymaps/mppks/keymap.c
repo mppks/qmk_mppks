@@ -19,6 +19,29 @@ enum custom_keycodes {
     KC_LEND
 };
 
+// Tap Dance declarations
+enum {
+    TD_LALT_SA,
+};
+
+void lalt_sa_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code(KC_LALT);
+    } else if (state->count == 2) {
+        register_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+    }
+}
+
+void lalt_sa_reset(tap_dance_state_t *state, void *user_data) {
+    unregister_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+    unregister_code(KC_LALT);
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_LALT_SA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lalt_sa_finished, lalt_sa_reset),
+};
+// Tap Dance declarations end
+
 #define KC_QWERTY PDF(_QWERTY)
 #define KC_COLEMAK PDF(_COLEMAK)
 
@@ -34,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |   ]  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LCTR | LAlt |LOWER | /Enter  /       \Space \  |RAISE | Bspc | Del  |  =   |
- *            |      |      |      |      |/       /         \      \ |      |      |      |      |
- *            `----------------------------------'            '------''---------------------------'
+ *            | LGUI | LCTR |TD_LAlt|LOWER | /Enter /       \Space \  |RAISE | Bspc | Del  |  =   |
+ *            |      |      |       |      |/      /         \      \ |      |      |      |      |
+ *            `-----------------------------------'           '------''---------------------------'
  */
 
 [_QWERTY] = LAYOUT(
@@ -44,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_LBRC,
   KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RBRC,
-                 KC_LGUI,KC_LCTL,KC_LALT, TL_LOWR, KC_ENT,      KC_SPC,  TL_UPPR, KC_BSPC, KC_DEL, KC_EQL
+           KC_LGUI, KC_LCTL, TD(TD_LALT_SA), TL_LOWR, KC_ENT,      KC_SPC,  TL_UPPR, KC_BSPC, KC_DEL, KC_EQL
 ),
 /*
  * COLEMAK
@@ -59,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LCTR | LAlt |LOWER | /Enter  /       \Space \  |RAISE | Bspc | Del  |  =   |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
- *            `----------------------------------'            '------''---------------------------'
+ *            `-----------------------------------'           '------''---------------------------'
  */
 
 [_COLEMAK] = LAYOUT(
@@ -155,6 +178,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
         case KC_NXTWD:
              if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -174,6 +198,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
         case KC_LSTRT:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -192,6 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
         case KC_LEND:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -210,6 +236,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+
     }
     return true;
 }
