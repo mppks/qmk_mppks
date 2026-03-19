@@ -21,24 +21,27 @@ enum custom_keycodes {
 
 // Tap Dance declarations
 enum {
-    TD_LALT_SA,
+    TD_LCTL_SA,
 };
 
-void lalt_sa_finished(tap_dance_state_t *state, void *user_data) {
+void lctl_sa_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        register_code(KC_LALT);
+        register_code(KC_LCTL);
     } else if (state->count == 2) {
         register_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
     }
 }
 
-void lalt_sa_reset(tap_dance_state_t *state, void *user_data) {
-    unregister_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
-    unregister_code(KC_LALT);
+void lctl_sa_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        unregister_code(KC_LCTL);
+    } else if (state->count == 2) {
+        unregister_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+    }
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_LALT_SA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lalt_sa_finished, lalt_sa_reset),
+    [TD_LCTL_SA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lctl_sa_finished, lctl_sa_reset),
 };
 // Tap Dance declarations end
 
@@ -57,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |   ]  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LCTR |TD_LAlt|LOWER | /Enter /       \Space \  |RAISE | Bspc | Del  |  =   |
- *            |      |      |       |      |/      /         \      \ |      |      |      |      |
+ *            |TD_LCTL| LGUI | LAlt |LOWER | /Enter /       \Space \  |RAISE | Bspc | Del  |  =   |
+ *            |       |      |      |      |/      /         \      \ |      |      |      |      |
  *            `-----------------------------------'           '------''---------------------------'
  */
 
@@ -67,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_LBRC,
   KC_TAB,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RBRC,
-           KC_LGUI, KC_LCTL, TD(TD_LALT_SA), TL_LOWR, KC_ENT,      KC_SPC,  TL_UPPR, KC_BSPC, KC_DEL, KC_EQL
+           TD(TD_LCTL_SA), KC_LGUI, KC_LALT, TL_LOWR, KC_ENT,      KC_SPC,  TL_UPPR, KC_BSPC, KC_DEL, KC_EQL
 ),
 /*
  * COLEMAK
@@ -80,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   K  |   M  |   ,  |   .  |   /  |   ]  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LCTR | LAlt |LOWER | /Enter  /       \Space \  |RAISE | Bspc | Del  |  =   |
+ *            | LCTR | LGUI | LAlt |LOWER | /Enter  /       \Space \  |RAISE | Bspc | Del  |  =   |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `-----------------------------------'           '------''---------------------------'
  */
@@ -90,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,   KC_Q,   KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_LBRC,
   KC_TAB,   KC_A,   KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,  KC_QUOT,
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,      XXXXXXX,KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RBRC,
-                 KC_LGUI,KC_LCTL,KC_LALT,TL_LOWR, KC_ENT,        KC_SPC,  TL_UPPR, KC_BSPC, KC_DEL, KC_EQL
+                 KC_LCTL,KC_LGUI,KC_LALT,TL_LOWR, KC_ENT,        KC_SPC,  TL_UPPR, KC_BSPC, KC_DEL, KC_EQL
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
