@@ -161,9 +161,10 @@ static void render_anim(void) {
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         print_status();
-        oled_write_P(PSTR("\n\nWPM: "), false);
-	    oled_write(get_u8_str(get_current_wpm(), '0'), false);
     } else {
+        oled_write_P(PSTR("\n\n WPM: "), false);
+	    oled_write(get_u8_str(get_current_wpm(), '0'), false);
+        oled_write_P(PSTR("\n\n\n\n"), false);
         render_anim();
     }
     return false;
