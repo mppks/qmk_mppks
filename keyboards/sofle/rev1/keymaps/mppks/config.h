@@ -20,11 +20,15 @@
 
 #define ENCODER_DIRECTION_FLIP
 
+#undef ENCODER_RESOLUTION
+#define ENCODER_RESOLUTION 4
+
 #undef MANUFACTURER
 #define MANUFACTURER "mppks"
 #undef PRODUCT
-#define PRODUCT "Sofle v2 keyboard"
+#define PRODUCT "Sofle v2.1 keyboard"
 
 #define DEBOUNCE 10
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+#define TAPPING_TERM 210
