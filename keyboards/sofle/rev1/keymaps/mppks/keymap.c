@@ -24,19 +24,20 @@ enum {
     TD_LCTL_SA,
 };
 
+static bool one_word_layout_swap = false;
+
 void lctl_sa_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code(KC_LCTL);
     } else if (state->count == 2) {
-        register_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
+        tap_code16(A(KC_LSFT));
+        one_word_layout_swap = !one_word_layout_swap;
     }
 }
 
 void lctl_sa_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code(KC_LCTL);
-    } else if (state->count == 2) {
-        unregister_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT));
     }
 }
 
@@ -161,6 +162,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed && one_word_layout_swap) {
+        if (keycode == KC_SPC) {
+            tap_code16(A(KC_LSFT));
+            one_word_layout_swap = false;
+        } else {
+            const uint8_t mods = get_mods() | get_oneshot_mods();
+            const bool shift_held = (mods & MOD_MASK_SHIFT) != 0;
+            const bool alt_held = (mods & MOD_MASK_ALT) != 0;
+            const bool alt_key = (keycode == KC_LALT || keycode == KC_RALT);
+            const bool shift_key = (keycode == KC_LSFT || keycode == KC_RSFT);
+
+            if ((alt_key && shift_held) || (shift_key && alt_held)) {
+                one_word_layout_swap = false;
+            }
+        }
+    }
+
     switch (keycode) {
         case KC_PRVWD:
             if (record->event.pressed) {
