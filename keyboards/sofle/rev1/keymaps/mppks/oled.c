@@ -1,5 +1,15 @@
 #ifdef OLED_ENABLE
 
+static bool caps_word_state = false;
+// Caps word state
+void caps_word_set_user(bool active) {
+    if (active) {
+        caps_word_state = true;
+    } else {
+        caps_word_state = false;
+    }
+}
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     // if (is_keyboard_master()) {
         return OLED_ROTATION_90;
@@ -55,6 +65,11 @@ void print_status(void) {
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CAPSLOCK"), led_usb_state.caps_lock);
+    oled_write_P(PSTR("\n"), false);
+    oled_write_ln_P(PSTR("LANG SWAP"), one_word_layout_swap);
+    oled_write_P(PSTR("\n"), false);
+    oled_write_ln_P(PSTR("CAPS WORD"), caps_word_state);
+
 }
 
 // OLED STUFF STARTS HERE
