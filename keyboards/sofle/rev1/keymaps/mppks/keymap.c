@@ -1,6 +1,10 @@
 // Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
+
+static bool one_word_layout_swap = false;
+static bool td_lctl_registered = false;
+
 #include "oled.c"
 
 enum sofle_layers {
@@ -24,11 +28,15 @@ enum {
     TD_LCTL_SA,
 };
 
-static bool one_word_layout_swap = false;
-
 void lctl_sa_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        register_code(KC_LCTL);
+        if (one_word_layout_swap) {
+            tap_code16(A(KC_LSFT));
+            one_word_layout_swap = false;
+        } else {
+            register_code(KC_LCTL);
+            td_lctl_registered = true;
+        }
     } else if (state->count == 2) {
         tap_code16(A(KC_LSFT));
         one_word_layout_swap = !one_word_layout_swap;
@@ -36,8 +44,9 @@ void lctl_sa_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 void lctl_sa_reset(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
+    if (state->count == 1 && td_lctl_registered) {
         unregister_code(KC_LCTL);
+        td_lctl_registered = false;
     }
 }
 
